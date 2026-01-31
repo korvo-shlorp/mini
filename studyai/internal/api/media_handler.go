@@ -114,7 +114,7 @@ func SubmitQuizHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Evaluate quiz (in production, you'd need to store original quiz)
-	result, err := media.EvaluateQuiz(req)
+	result, err := media.EvaluateQuiz(req, req.Questions)
 	if err != nil {
 		log.Printf("quiz evaluation error: %v", err)
 		http.Error(w, "failed to evaluate quiz", http.StatusInternalServerError)

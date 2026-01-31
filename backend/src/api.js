@@ -45,11 +45,12 @@ export const mediaAPI = {
     return response.data
   },
 
-  submitQuiz: async (quizID, answers, timeSpent) => {
+  submitQuiz: async (quizID, answers, timeSpent, questions = []) => {
     const response = await axios.post(`${API_BASE}/submit-quiz`, {
       quiz_id: quizID,
       answers,
       time_spent: timeSpent,
+      questions,
     })
     return response.data
   },

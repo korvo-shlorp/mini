@@ -75,21 +75,34 @@ export default function ProgressTracking() {
     }
   }
 
-  const mockStatistics = {
-    quizzesAttempted: 12,
-    averageScore: 78,
-    totalStudyHours: 45.5,
-    currentStreak: 5,
-    weeklyProgress: [
-      { day: 'Mon', hours: 2 },
-      { day: 'Tue', hours: 2.5 },
-      { day: 'Wed', hours: 1.5 },
-      { day: 'Thu', hours: 3 },
-      { day: 'Fri', hours: 2 },
-      { day: 'Sat', hours: 4 },
-      { day: 'Sun', hours: 1.5 },
-    ],
+  // Fallback statistics for when profile is first created
+  const getStatistics = (profile) => {
+    if (!profile) {
+      return {
+        quizzesAttempted: 0,
+        averageScore: 0,
+        totalStudyHours: 0,
+        currentStreak: 0,
+        weeklyProgress: Array.from({ length: 7 }, (_, i) => ({
+          day: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i],
+          hours: 0,
+        })),
+      }
+    }
+
+    return {
+      quizzesAttempted: profile.quizzes_attempted || 0,
+      averageScore: Math.round(profile.average_score || 0),
+      totalStudyHours: profile.study_hours || 0,
+      currentStreak: profile.current_streak || 0,
+      weeklyProgress: profile.weekly_progress || Array.from({ length: 7 }, (_, i) => ({
+        day: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i],
+        hours: 0,
+      })),
+    }
   }
+
+  const mockStatistics = getStatistics(profile)
 
   if (!showProfile) {
     return (

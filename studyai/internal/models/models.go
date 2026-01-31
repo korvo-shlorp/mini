@@ -75,12 +75,14 @@ type QuizResponse struct {
     QuizID    string          `json:"quiz_id"`
     Questions []QuizQuestion  `json:"questions"`
     TimeLimit int             `json:"time_limit"` // in seconds
+    IsDevFallback bool        `json:"is_dev_fallback"` // true if using sample questions
 }
 
 type QuizSubmissionRequest struct {
     QuizID      string `json:"quiz_id"`
     Answers     []int  `json:"answers"` // indices of selected answers
     TimeSpent   int    `json:"time_spent"` // in seconds
+    Questions   []QuizQuestion `json:"questions"`
 }
 
 type QuizResult struct {
@@ -91,6 +93,16 @@ type QuizResult struct {
     Feedback           string   `json:"feedback"`
     WeakTopics         []string `json:"weak_topics"`
     RecommendedReview  []string `json:"recommended_review"`
+    Reviews            []QuestionReview `json:"reviews"`
+}
+
+type QuestionReview struct {
+    QuestionID         string   `json:"question_id"`
+    Question           string   `json:"question"`
+    CorrectAnswer      int      `json:"correct_answer"`
+    CorrectOption      string   `json:"correct_option"`
+    Explanation        string   `json:"explanation"`
+    SuggestedNextSteps []string `json:"suggested_next_steps"`
 }
 
 type ProgressProfile struct {

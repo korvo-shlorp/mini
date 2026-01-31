@@ -23,23 +23,23 @@
 ┌──────────────────────────────────────────────────────────────────┐
 │                      USER BROWSER / CLIENT                       │
 │                                                                  │
-│  ┌──────────────────────────────────────────────────────────┐   │
-│  │              React Frontend (Vite)                       │   │
-│  │                                                          │   │
-│  │  ┌──────────┬──────────┬─────────┬──────────┐           │   │
-│  │  │ Sidebar  │ChatUI    │Document │Learning  │           │   │
-│  │  │Navigatio │Interface │Analyzer │Hub      │           │   │
-│  │  │    (6    │          │         │         │           │   │
-│  │  │  items)  │          │         │         │           │   │
-│  │  └──────────┴──────────┴─────────┴──────────┘           │   │
-│  │  ┌──────────┬──────────┬─────────┐                      │   │
-│  │  │ Quizzes  │Progress  │Header   │                      │   │
-│  │  │Page      │Tracking  │Navbar   │                      │   │
-│  │  └──────────┴──────────┴─────────┘                      │   │
-│  │                                                          │   │
-│  │  State: React Hooks (useState, useEffect)              │   │
-│  │  Styling: Tailwind CSS (dark theme)                    │   │
-│  └──────────────────────────────────────────────────────────┘   │
+│  ┌──────────────────────────────────────────────────────────┐    │
+│  │              React Frontend (Vite)                       │    │
+│  │                                                          │    │
+│  │  ┌──────────┬──────────┬─────────┬──────────┐            │    │
+│  │  │ Sidebar  │ChatUI    │Document │Learning  │            │    │
+│  │  │Navigatio │Interface │Analyzer │Hub       │            │    │
+│  │  │    (6    │          │         │          │            │    │
+│  │  │  items)  │          │         │          │            │    │
+│  │  └──────────┴──────────┴─────────┴──────────┘            │    │
+│  │  ┌──────────┬──────────┬─────────┐                       │    │
+│  │  │ Quizzes  │Progress  │Header   │                       │    │
+│  │  │Page      │Tracking  │Navbar   │                       │    │
+│  │  └──────────┴──────────┴─────────┘                       │    │
+│  │                                                          │    │
+│  │  State: React Hooks (useState, useEffect)                │    │
+│  │  Styling: Tailwind CSS (dark theme)                      │    │
+│  └──────────────────────────────────────────────────────────┘    │
 └──────────────────────┬───────────────────────────────────────────┘
                        │
                        │ HTTP/REST (Axios)
@@ -64,23 +64,23 @@
         │              │                      │
         └──────────────┼──────────────────────┘
                        │
-        ┌──────────────▼───────────────────────────┐
-        │         Business Logic Layer             │
-        │                                          │
-        │  ┌──────────┐  ┌──────────┐            │
-        │  │  Agent   │  │    AI    │            │
-        │  │ Orchestr │  │ Interface│            │
-        │  │ ation    │  │          │            │
-        │  └──────────┘  └──────────┘            │
-        │  ┌──────────────────────┐              │
-        │  │   Media Package      │              │
-        │  │  ┌────┐┌────┐┌────┐ │              │
-        │  │  │OCR ││Quiz││Prog│ │              │
-        │  │  └────┘└────┘└────┘ │              │
-        │  │  ┌──────────┐        │              │
-        │  │  │ Analyzer │        │              │
-        │  │  └──────────┘        │              │
-        │  └──────────────────────┘              │
+        ┌──────────────▼───────────────────────┐
+        │         Business Logic Layer         │
+        │                                      │
+        │  ┌──────────┐  ┌──────────┐          │
+        │  │  Agent   │  │    AI    │          │
+        │  │ Orchestr │  │ Interface│          │
+        │  │ ation    │  │          │          │
+        │  └──────────┘  └──────────┘          │
+        │  ┌──────────────────────┐            │
+        │  │   Media Package      │            │
+        │  │  ┌────┐┌────┐┌────┐  │            │
+        │  │  │OCR ││Quiz││Prog│  │            │
+        │  │  └────┘└────┘└────┘  │            │
+        │  │  ┌──────────┐        │            │
+        │  │  │ Analyzer │        │            │
+        │  │  └──────────┘        │            │
+        │  └──────────────────────┘            │
         └──────────────┬───────────────────────┘
                        │
         ┌──────────────┴──────────────┐
@@ -89,15 +89,15 @@
     ┌────────────┐          ┌──────────────────┐
     │   Data     │          │  External AI APIs│
     │  Storage   │          │                  │
-        │            │          │  ┌────────────┐  │
-        │ ┌────────┐ │          │  │ Groq API   │  │
-        │ │Progress│ │          │  │ (Llama 3.1)│  │
-        │ │(in-mem)│ │          │  └────────────┘  │
-        │ └────────┘ │          │  ┌────────────┐  │
-        │            │          │  │ Google     │  │
-        │ Future:    │          │  │ Vision /   │  │
-        │ PostgreSQL │          │  │ Gemini     │  │
-        │ MongoDB    │          │  └────────────┘  │
+    │            │          │  ┌────────────┐  │
+    │ ┌────────┐ │          │  │ Groq API   │  │
+    │ │Progress│ │          │  │ (Llama 3.1)│  │
+    │ │(in-mem)│ │          │  └────────────┘  │
+    │ └────────┘ │          │  ┌────────────┐  │
+    │            │          │  │ Google     │  │
+    │ Future:    │          │  │ Vision /   │  │
+    │ PostgreSQL │          │  │ Gemini     │  │
+    │ MongoDB    │          │  └────────────┘  │
     │ MongoDB    │          │                  │
     └────────────┘          └──────────────────┘
 ```
@@ -325,7 +325,7 @@ studyai/
 └── internal/
     ├── api/
     │   ├── handler.go (Original)
-    │   └── media_handler.go ✨ NEW
+    │   └── media_handler.go
     │       ├── ImageAnalysisHandler
     │       ├── GenerateQuizHandler
     │       ├── SubmitQuizHandler
@@ -340,7 +340,7 @@ studyai/
     │   ├── chat.go
     │   └── client.go
     │
-    ├── media/ ✨ NEW PACKAGE
+    ├── media/
     │   ├── ocr.go
         │   │   └── OCRService (Google Vision / Gemini)
     │   ├── analyzer.go
@@ -440,42 +440,6 @@ PROGRESS_STATS
 ├── total_study_hours
 └── updated_at
 ```
-
-## Deployment Architecture
-
-```
-┌──────────────────────────────────────────────┐
-│         Cloud Provider (AWS/GCP/etc)         │
-│                                              │
-│  ┌─────────────────────────────────────┐    │
-│  │  Vercel / Netlify (Frontend)        │    │
-│  │  - React Build                      │    │
-│  │  - Static Files                     │    │
-│  │  - Edge Functions                   │    │
-│  └─────────────────────────────────────┘    │
-│                                              │
-│  ┌─────────────────────────────────────┐    │
-│  │  Cloud Run / Lambda (Backend)       │    │
-│  │  - Go Binary                        │    │
-│  │  - REST API                         │    │
-│  │  - Auto-scaling                     │    │
-│  └─────────────────────────────────────┘    │
-│                                              │
-│  ┌─────────────────────────────────────┐    │
-│  │  Cloud SQL / DynamoDB (Database)    │    │
-│  │  - Persistent Storage               │    │
-│  │  - Backups                          │    │
-│  │  - Scaling                          │    │
-│  └─────────────────────────────────────┘    │
-│                                              │
-│  ┌─────────────────────────────────────┐    │
-│  │  External APIs                      │    │
-│  │  - Groq (LLM)                       │    │
-│  │  - Google Gemini (Vision)           │    │
-│  └─────────────────────────────────────┘    │
-└──────────────────────────────────────────────┘
-```
-
 ---
 
 These diagrams provide a comprehensive visual understanding of:
@@ -484,5 +448,3 @@ These diagrams provide a comprehensive visual understanding of:
 3. Component hierarchy
 4. Package structure
 5. Request/response cycle
-6. Future database schema
-7. Deployment topology

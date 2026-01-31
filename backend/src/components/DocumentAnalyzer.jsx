@@ -65,16 +65,16 @@ export default function DocumentAnalyzer() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto">
+    <div className="flex flex-col h-full bg-dark">
       {/* Upload Section */}
-      <div className="flex-shrink-0 bg-darkCard border-b border-gray-700 p-6">
-        <h2 className="text-2xl font-bold mb-4">Document Analyzer</h2>
-        <p className="text-gray-300 mb-6">Upload an image or PDF to analyze questions and get personalized study recommendations.</p>
+      <div className="flex-shrink-0 bg-gradient-to-r from-darkCard to-dark border-b border-gray-700 p-6">
+        <h2 className="text-3xl font-bold mb-2 text-white">📄 Document Analyzer</h2>
+        <p className="text-gray-400 mb-6">Upload an image or PDF to analyze questions and get personalized study recommendations.</p>
 
         {/* File Upload */}
         <div className="mb-6">
-          <label className="block text-sm font-medium mb-2">Upload Document (Image or PDF)</label>
-          <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center hover:border-primary transition cursor-pointer">
+          <label className="block text-sm font-medium mb-3 text-gray-300">Upload Document (Image or PDF)</label>
+          <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center hover:border-blue-500 hover:bg-gray-900/50 transition cursor-pointer">
             <input
               type="file"
               accept="image/*,.pdf"
@@ -82,16 +82,18 @@ export default function DocumentAnalyzer() {
               className="hidden"
               id="file-input"
             />
-            <label htmlFor="file-input" className="cursor-pointer">
+            <label htmlFor="file-input" className="cursor-pointer block">
               {file ? (
                 <div>
-                  <p className="text-primary font-medium">{file.name}</p>
+                  <div className="text-3xl mb-2">✅</div>
+                  <p className="text-blue-400 font-medium">{file.name}</p>
                   <p className="text-sm text-gray-400 mt-1">Click to change file</p>
                 </div>
               ) : (
                 <div>
-                  <p className="text-gray-300">Click to upload or drag and drop</p>
-                  <p className="text-sm text-gray-500">PNG, JPG, or PDF (max 10MB)</p>
+                  <div className="text-4xl mb-3">📤</div>
+                  <p className="text-gray-300 font-medium">Click to upload or drag and drop</p>
+                  <p className="text-sm text-gray-500 mt-1">PNG, JPG, or PDF (max 10MB)</p>
                 </div>
               )}
             </label>
@@ -99,13 +101,13 @@ export default function DocumentAnalyzer() {
         </div>
 
         {/* Student Profile */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Grade Level</label>
+            <label className="block text-sm font-medium mb-2 text-gray-300">Grade Level</label>
             <select
               value={studentGrade}
               onChange={(e) => setStudentGrade(parseInt(e.target.value))}
-              className="w-full px-4 py-2 rounded-lg bg-dark border border-gray-600 text-white"
+              className="w-full px-4 py-2 rounded-lg bg-dark border border-gray-600 text-white focus:border-blue-500 focus:outline-none transition"
             >
               {[6, 7, 8, 9, 10, 11, 12].map((grade) => (
                 <option key={grade} value={grade}>Grade {grade}</option>
@@ -114,45 +116,53 @@ export default function DocumentAnalyzer() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Age</label>
+            <label className="block text-sm font-medium mb-2 text-gray-300">Age</label>
             <input
               type="number"
               value={studentAge}
               onChange={(e) => setStudentAge(parseInt(e.target.value))}
-              className="w-full px-4 py-2 rounded-lg bg-dark border border-gray-600 text-white"
+              className="w-full px-4 py-2 rounded-lg bg-dark border border-gray-600 text-white focus:border-blue-500 focus:outline-none transition"
               min="5"
               max="25"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Areas of Weakness</label>
+            <label className="block text-sm font-medium mb-2 text-gray-300">Areas of Weakness</label>
             <input
               type="text"
               placeholder="e.g., Algebra, Science"
               value={weakAreas}
               onChange={(e) => setWeakAreas(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-dark border border-gray-600 text-white"
+              className="w-full px-4 py-2 rounded-lg bg-dark border border-gray-600 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none transition"
             />
           </div>
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-red-900 border border-red-700 rounded-lg text-red-100">
-            {error}
+          <div className="mb-4 p-4 bg-red-900/50 border border-red-700 rounded-lg text-red-200 flex items-start gap-3">
+            <span className="text-xl flex-shrink-0">⚠️</span>
+            <div>{error}</div>
           </div>
         )}
 
         <button
           onClick={handleAnalyze}
           disabled={!file || loading}
-          className={`w-full py-2 rounded-lg font-medium transition ${
+          className={`w-full py-3 rounded-lg font-semibold transition duration-200 ${
             loading || !file
               ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-              : 'bg-primary hover:bg-primary-dark text-white'
+              : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl'
           }`}
         >
-          {loading ? 'Analyzing...' : 'Analyze Document'}
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <span className="animate-spin">⏳</span>
+              Analyzing Document...
+            </span>
+          ) : (
+            'Analyze Document'
+          )}
         </button>
       </div>
 
@@ -161,50 +171,69 @@ export default function DocumentAnalyzer() {
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Extracted Questions */}
           {result.extracted_questions && result.extracted_questions.length > 0 && (
-            <div className="bg-darkCard rounded-lg p-6 border border-gray-700">
-              <h3 className="text-xl font-bold mb-3 text-primary">📋 Questions Found</h3>
-              <ul className="space-y-2">
+            <div className="bg-gradient-to-br from-darkCard to-dark rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition">
+              <h3 className="text-xl font-bold mb-4 text-blue-400 flex items-center gap-2">
+                <span>📋</span> Questions Found ({result.extracted_questions.length})
+              </h3>
+              <div className="space-y-3">
                 {result.extracted_questions.map((q, idx) => (
-                  <li key={idx} className="text-gray-300 flex items-start gap-3">
-                    <span className="text-primary font-bold">{idx + 1}.</span>
-                    <span>{q}</span>
-                  </li>
+                  <div key={idx} className="bg-dark/60 rounded-lg p-4 border border-gray-700 hover:border-gray-600 transition">
+                    <div className="flex items-start gap-3">
+                      <span className="text-blue-400 font-bold text-lg flex-shrink-0 w-8">{idx + 1}.</span>
+                      <p className="text-gray-200 flex-1 leading-relaxed break-words">{q}</p>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
 
           {/* Revision Questions */}
           {result.revision_questions && result.revision_questions.length > 0 && (
-            <div className="bg-darkCard rounded-lg p-6 border border-gray-700">
-              <h3 className="text-xl font-bold mb-3 text-primary">✅ Revision Questions</h3>
-              <ul className="space-y-2">
+            <div className="bg-gradient-to-br from-darkCard to-dark rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition">
+              <h3 className="text-xl font-bold mb-4 text-green-400 flex items-center gap-2">
+                <span>✅</span> Revision Questions ({result.revision_questions.length})
+              </h3>
+              <div className="space-y-3">
                 {result.revision_questions.map((q, idx) => (
-                  <li key={idx} className="text-gray-300 flex items-start gap-3">
-                    <span className="text-primary font-bold">{idx + 1}.</span>
-                    <span>{q}</span>
-                  </li>
+                  <div key={idx} className="bg-dark/60 rounded-lg p-4 border border-gray-700 hover:border-gray-600 transition">
+                    <div className="flex items-start gap-3">
+                      <span className="text-green-400 font-bold text-lg flex-shrink-0 w-8">{idx + 1}.</span>
+                      <p className="text-gray-200 flex-1 leading-relaxed break-words">{q}</p>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
 
           {/* Study Plan */}
           {result.study_plan && (
-            <div className="bg-darkCard rounded-lg p-6 border border-gray-700">
-              <h3 className="text-xl font-bold mb-3 text-primary">📅 Recommended Study Plan</h3>
-              <div className="space-y-2">
-                <p><span className="font-medium">Timeline:</span> {result.study_plan.timeline_weeks} weeks</p>
-                <p><span className="font-medium">Daily Study Hours:</span> {result.study_plan.daily_study_hours} hours</p>
+            <div className="bg-gradient-to-br from-darkCard to-dark rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition">
+              <h3 className="text-xl font-bold mb-4 text-purple-400 flex items-center gap-2">
+                <span>📅</span> Recommended Study Plan
+              </h3>
+              <div className="space-y-3 text-gray-200">
+                <div className="bg-dark/60 rounded-lg p-4 border border-gray-700">
+                  <p className="text-sm"><span className="font-semibold text-gray-300">Timeline:</span> <span className="text-blue-300">{result.study_plan.timeline_weeks} weeks</span></p>
+                </div>
+                <div className="bg-dark/60 rounded-lg p-4 border border-gray-700">
+                  <p className="text-sm"><span className="font-semibold text-gray-300">Daily Study Hours:</span> <span className="text-blue-300">{result.study_plan.daily_study_hours} hours</span></p>
+                </div>
                 {result.study_plan.estimated_readiness && (
-                  <p><span className="font-medium">Readiness:</span> {result.study_plan.estimated_readiness}</p>
+                  <div className="bg-dark/60 rounded-lg p-4 border border-gray-700">
+                    <p className="text-sm"><span className="font-semibold text-gray-300">Estimated Readiness:</span> <span className="text-blue-300">{result.study_plan.estimated_readiness}</span></p>
+                  </div>
                 )}
                 {result.study_plan.topics && result.study_plan.topics.length > 0 && (
-                  <div>
-                    <p className="font-medium">Topics to Cover:</p>
-                    <ul className="list-disc list-inside text-gray-300 mt-1">
+                  <div className="bg-dark/60 rounded-lg p-4 border border-gray-700">
+                    <p className="font-semibold text-gray-300 mb-3">Topics to Cover:</p>
+                    <ul className="space-y-2">
                       {result.study_plan.topics.map((t, idx) => (
-                        <li key={idx}>{t}</li>
+                        <li key={idx} className="flex items-start gap-3 text-gray-200">
+                          <span className="text-purple-400 flex-shrink-0 mt-1">→</span>
+                          <span>{t}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -215,16 +244,26 @@ export default function DocumentAnalyzer() {
 
           {/* Learning Materials */}
           {result.learning_materials && result.learning_materials.length > 0 && (
-            <div className="bg-darkCard rounded-lg p-6 border border-gray-700">
-              <h3 className="text-xl font-bold mb-3 text-primary">📚 Recommended Learning Materials</h3>
-              <div className="space-y-3">
+            <div className="bg-gradient-to-br from-darkCard to-dark rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition">
+              <h3 className="text-xl font-bold mb-4 text-orange-400 flex items-center gap-2">
+                <span>📚</span> Recommended Learning Materials ({result.learning_materials.length})
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {result.learning_materials.map((material, idx) => (
-                  <div key={idx} className="bg-dark rounded-lg p-4 border border-gray-600">
-                    <h4 className="font-semibold text-white">{material.title}</h4>
-                    <p className="text-sm text-gray-400 mt-1">{material.description}</p>
-                    <div className="flex gap-3 mt-2 text-xs text-gray-500">
-                      <span className="bg-gray-700 px-2 py-1 rounded">{material.type}</span>
-                      <span className="bg-gray-700 px-2 py-1 rounded">{material.difficulty}</span>
+                  <div key={idx} className="bg-dark/60 rounded-lg p-5 border border-gray-700 hover:border-gray-600 hover:shadow-lg transition">
+                    <h4 className="font-semibold text-white mb-2 text-base">{material.title}</h4>
+                    <p className="text-sm text-gray-400 mb-3 leading-relaxed">{material.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {material.type && (
+                        <span className="inline-block bg-blue-900/40 text-blue-300 px-3 py-1 rounded-md text-xs font-medium border border-blue-700/40">
+                          {material.type}
+                        </span>
+                      )}
+                      {material.difficulty && (
+                        <span className="inline-block bg-amber-900/40 text-amber-300 px-3 py-1 rounded-md text-xs font-medium border border-amber-700/40">
+                          {material.difficulty}
+                        </span>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -234,32 +273,42 @@ export default function DocumentAnalyzer() {
 
           {/* Improvement Tips */}
           {result.improvement_tips && result.improvement_tips.length > 0 && (
-            <div className="bg-darkCard rounded-lg p-6 border border-gray-700">
-              <h3 className="text-xl font-bold mb-3 text-primary">💡 Improvement Tips</h3>
-              <ul className="space-y-2">
+            <div className="bg-gradient-to-br from-darkCard to-dark rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition">
+              <h3 className="text-xl font-bold mb-4 text-yellow-400 flex items-center gap-2">
+                <span>💡</span> Improvement Tips
+              </h3>
+              <div className="space-y-3">
                 {result.improvement_tips.map((tip, idx) => (
-                  <li key={idx} className="text-gray-300 flex items-start gap-3">
-                    <span className="text-primary font-bold">•</span>
-                    <span>{tip}</span>
-                  </li>
+                  <div key={idx} className="bg-dark/60 rounded-lg p-4 border border-gray-700 hover:border-gray-600 transition">
+                    <div className="flex items-start gap-3">
+                      <span className="text-yellow-400 flex-shrink-0 font-bold">✦</span>
+                      <p className="text-gray-200 flex-1 leading-relaxed">{tip}</p>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
 
           {/* Disclaimer */}
           {result.disclaimer && (
-            <div className="bg-yellow-900 border border-yellow-700 rounded-lg p-4 text-yellow-100 text-sm">
-              <p className="font-semibold">📌 Disclaimer</p>
-              <p>{result.disclaimer}</p>
+            <div className="bg-amber-900/30 border border-amber-700/50 rounded-lg p-5 text-amber-100">
+              <p className="font-semibold mb-2 flex items-center gap-2">
+                <span>📌</span> Disclaimer
+              </p>
+              <p className="text-sm leading-relaxed text-amber-50">{result.disclaimer}</p>
             </div>
           )}
         </div>
       )}
 
       {!result && !loading && (
-        <div className="flex-1 flex items-center justify-center text-gray-400">
-          <p>Upload a document to get started</p>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-6xl mb-4">📄</div>
+            <p className="text-gray-400 text-lg">Upload a document to get started</p>
+            <p className="text-gray-500 text-sm mt-2">Analyze questions and get personalized study recommendations</p>
+          </div>
         </div>
       )}
     </div>
