@@ -179,3 +179,14 @@ func callLLM(prompt string) (string, error) {
     return parsed.Choices[0].Message.Content, nil
 }
 
+// CallLLM is the public wrapper for callLLM - allows other packages to use the LLM
+func CallLLM(prompt string) (string, error) {
+    return callLLM(prompt)
+}
+
+// CallLLMJSON calls the LLM and requests JSON-formatted output
+func CallLLMJSON(prompt string) (string, error) {
+    jsonPrompt := prompt + "\n\nReturn ONLY valid JSON, no additional text."
+    return callLLM(jsonPrompt)
+}
+
