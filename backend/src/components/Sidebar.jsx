@@ -2,6 +2,10 @@ export default function Sidebar({ isOpen, onClose, onTabChange, activeTab }) {
   const menuItems = [
     { id: 'chat', label: 'Chat', icon: '💬' },
     { id: 'evaluator', label: 'Study Evaluator', icon: '📚' },
+    { id: 'document', label: 'Document Analyzer', icon: '📄' },
+    { id: 'learning', label: 'Learning Hub', icon: '🎓' },
+    { id: 'quizzes', label: 'Quizzes', icon: '✅' },
+    { id: 'progress', label: 'Progress Tracking', icon: '📊' },
   ]
 
   return (
@@ -63,7 +67,7 @@ export default function Sidebar({ isOpen, onClose, onTabChange, activeTab }) {
 
         {/* Footer */}
         <div className="px-4 py-4 border-t border-gray-700">
-          <p className="text-xs text-gray-500 text-center">StudyAI v1.0</p>
+          <p className="text-xs text-gray-500 text-center">StudyAI v2.0</p>
         </div>
       </aside>
     </>
